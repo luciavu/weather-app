@@ -2,10 +2,198 @@
 
 :root {
   --main: rgb(0, 0, 0);
+  --light: rgb(212, 212, 212);
+  --frosted: rgba(255, 255, 255, 0.15);
+  --frosted-focus: rgba(255, 255, 255, 0.5);
 }
 
 * {
   font-family: 'Inter', Arial, sans-serif;
   box-sizing: border-box;
   font-size: 16px;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+main {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+.frosted {
+  background-color: var(--frosted);
+  backdrop-filter: blur(0.5rem);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 14vh;
+  padding: 0 1rem;
+  padding-right: 2rem;
+}
+
+.credits i {
+  color: var(--light);
+  font-size: 3.2rem;
+}
+
+.credits:hover {
+  transition: 0.2s ease-out;
+  transform: scale(1.1);
+}
+
+.search-options {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.search {
+  position: relative;
+  width: fit-content;
+}
+
+#searchbar {
+  border: none;
+  color: var(--light);
+  padding: 0.7rem 3rem;
+  width: 28vw;
+  border-radius: 2rem;
+}
+
+#searchbar::placeholder {
+  color: var(--light);
+}
+
+.search a {
+  position: absolute;
+  left: 1rem;
+  top: 0.73rem;
+  color: var(--light);
+}
+
+.geolocation {
+  cursor: pointer;
+  padding: 0.7rem;
+  border-radius: 2rem;
+}
+
+.geolocation i {
+  color: var(--light);
+}
+
+#searchbar:focus {
+  outline: 0.01rem solid var(--frosted-focus);
+}
+
+.main-weather-info {
+  display: flex;
+  flex-direction: column;
+  padding-top: 12vh;
+  height: 86vh;
+  width: 100%;
+  gap: 8vh;
+}
+
+.weather,
+.hourly-forecast {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding-left: 5%;
+  color: var(--light);
+}
+
+.location {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.time {
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.temperature {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
+
+.measurement {
+  font-size: 8rem;
+  font-weight: 600;
+}
+
+.symbol,
+.metric {
+  align-self: start;
+  font-size: 4rem;
+  font-weight: 400;
+  margin-top: 1rem;
+}
+
+.condition {
+  font-size: 1.5rem;
+}
+
+.hourly-forecast {
+  justify-content: end;
+  gap: 1rem;
+}
+
+.forecast-title {
+  font-weight: 600;
+}
+
+.forecast-item-container {
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 8vh;
+  overflow-x: scroll;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.forecast-item {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.4rem;
+  width: 4rem;
+}
+
+.forecast-item .time {
+  opacity: 0.9;
+  font-size: 1.4rem;
+}
+
+.forecast-item .temperature {
+  font-weight: 600;
+}
+
+.forecast-item .icon {
+}
+
+.info-section {
+  height: 100vh;
+  padding: 5%;
+}
+
+.info-section .title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--main);
 }

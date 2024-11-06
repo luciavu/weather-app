@@ -1,4 +1,7 @@
 import '../css/styles.css';
-//import '../css/fontello.css';
+import '../css/fontello.css';
+import changeBackground from './background';
 
-document.addEventListener('DOMContentLoaded', () => {});
+document.addEventListener('DOMContentLoaded', () => {
+  changeBackground('');
+});
