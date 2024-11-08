@@ -2,8 +2,10 @@
 
 const handleError = (errorMessage) => {
   // Display error message
-  const errorDiv = document.querySelector('.error-msg-div'); // Assuming there's a div for errors
-  errorDiv.textContent = errorMessage;
+  const errorDiv = document.querySelector('.error-msg-div');
+  const errorMsg = document.querySelector('.error-msg');
+
+  errorMsg.textContent = errorMessage;
   errorDiv.style.display = 'flex';
 
   // Hide after 10s
