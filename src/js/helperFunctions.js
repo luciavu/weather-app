@@ -64,3 +64,22 @@ export const getLocationName = (resolvedAddress) => {
   // Case where address format: "Việt Nam"
   return resolvedAddress; // Return full name
 };
+
+export const getWeekdayFromDate = (dateString) => {
+  const date = new Date(dateString);
+  const weekdays = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
+  return weekdays[date.getDay()];
+};
+
+// Helper function for creating elements
+export const createElement = (type, classNames = [], textContent = '') => {
+  const element = document.createElement(type);
+  if (classNames.length) {
+    element.classList.add(...classNames);
+  }
+
+  if (textContent) {
+    element.textContent = textContent;
+  }
+  return element;
+};

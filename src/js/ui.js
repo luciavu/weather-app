@@ -1,6 +1,7 @@
-// TODO: Handle user interaction and page rendering
+// Handle user interaction and page rendering
 import getUserLocation from './geolocation';
-import { convertUnit } from './helperFunctions.js';
+import { convertUnit, createElement } from './helperFunctions.js';
+import getWeatherIcon from './icons.js';
 
 // Add event listener for page scroll via arrow
 export const addScrollArrowListener = () => {
@@ -79,11 +80,11 @@ export const toggleLoadingIcon = () => {
 // Render page, including updating icons, background, weather details
 export const renderPage = (weatherData) => {
   // Update background
-  // Update weather details
+  console.log(weatherData.condition);
 
+  // Update weather details
   for (let key in weatherData) {
     const value = weatherData[key];
-
     const element = document.querySelector(`.${key}`);
 
     if (element) {
@@ -92,5 +93,61 @@ export const renderPage = (weatherData) => {
       console.log(key, value);
     }
   }
-  // Update icons
+  // Render hourly forecast
+  console.log('function');
+  renderHourlyForecast(weatherData.hourlyForecast);
+
+  // Render 10 day forecast
+  renderTenDayForecast(weatherData.tenDayForecast);
+};
+
+// Render hourly forecast divs: time, icon, temperature
+const renderHourlyForecast = (hourlyForecast) => {
+  const forecastContainer = document.querySelector('.forecast-item-container');
+  // Clear previous content
+  forecastContainer.textContent = '';
+
+  hourlyForecast.forEach((forecast) => {
+    const forecastItem = createElement('div', ['forecast-item', 'frosted', 'flex-center']);
+    const time = createElement('div', ['time'], forecast.time);
+    const icon = createElement('i', [getWeatherIcon(forecast.condition, forecast.time)]);
+    const temperature = createElement(
+      'div',
+      ['temperature', 'convertable', 'has-unit'],
+      forecast.temperature
+    );
+    forecastItem.append(time, icon, temperature);
+    forecastContainer.append(forecastItem);
+  });
+};
+
+// Render ten day forecast divs: day, icon, low, high
+const renderTenDayForecast = (tenDayForecast) => {
+  const forecastContainer = document.querySelector('.day-forecast-div');
+  // Clear previous content
+  forecastContainer.textContent = '';
+
+  tenDayForecast.forEach((forecast, index) => {
+    const item = createElement('div', ['day-forecast-item']);
+    // Current day (first date) displayed as 'Today'
+    const day = createElement('div', ['day'], index === 0 ? 'Today' : forecast.day);
+    const icon = createElement('i', [
+      'day-forecast-icon',
+      getWeatherIcon(forecast.condition, '00:00'),
+    ]);
+    const low = createElement('div', ['day-forecast-low', 'convertable'], forecast.tempMin);
+    const high = createElement('div', ['day-forecast-high', 'convertable'], forecast.tempMax);
+
+    item.append(day, icon, low, high);
+    forecastContainer.append(item);
+  });
+};
+
+// Toggle main visibility for loading default values on first visit
+export const temporarilyHideMain = () => {
+  const main = document.querySelector('main');
+  main.style.opacity = 0;
+  setTimeout(() => {
+    main.style.opacity = 1;
+  }, 1000);
 };

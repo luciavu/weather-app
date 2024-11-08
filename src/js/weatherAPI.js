@@ -1,7 +1,13 @@
 // Fetch and parse data from Weather API
-import { uvRating, windDirection, getTimeFromOffset, getLocationName } from './helperFunctions';
+import {
+  uvRating,
+  windDirection,
+  getTimeFromOffset,
+  getLocationName,
+  getWeekdayFromDate,
+} from './helperFunctions';
 
-const fetchWeatherData = async (location) => {
+export const fetchWeatherData = async (location) => {
   // Check if given longitude/latitude or a location
   const unit = document.querySelector('.weather .temperature').classList.contains('celsius')
     ? '°C'
@@ -39,8 +45,12 @@ const fetchWeatherData = async (location) => {
       visibilityValue: `${data.currentConditions.visibility} km`,
       humidityValue: `${data.currentConditions.humidity}%`,
       dewpointTemperature: `${data.currentConditions.dew}${unit}`,
-      hourlyForecast: `${data.days[0].hours}`,
-      tenDayForecast: `${data.days}`,
+      hourlyForecast: parseHourlyForecast(
+        data.days[0].hours,
+        getTimeFromOffset(data.tzoffset),
+        unit
+      ),
+      tenDayForecast: parseTenDayForecast(data.days),
     };
     return weatherData;
   } catch (error) {
@@ -48,4 +58,32 @@ const fetchWeatherData = async (location) => {
   }
 };
 
-export default fetchWeatherData;
+const parseHourlyForecast = (hourlyForecast, time, unit) => {
+  let parsedHourlyForecast = [];
+  const startingHour = parseInt(time.slice(0, 2));
+  // Get 7 hours worth of forecast, starting from current time
+
+  for (let i = startingHour; i < startingHour + 7; i++) {
+    parsedHourlyForecast.push({
+      time: hourlyForecast[i].datetime.slice(0, -3),
+      condition: hourlyForecast[i].conditions,
+      temperature: `${Math.round(hourlyForecast[i].temp)}${unit}`,
+    });
+  }
+  return parsedHourlyForecast;
+};
+
+const parseTenDayForecast = (tenDayForecast) => {
+  let parsedTenDayForecast = [];
+  // Get 10 days worth of forecast, starting from current date
+
+  for (let i = 0; i < 10; i++) {
+    parsedTenDayForecast.push({
+      day: getWeekdayFromDate(tenDayForecast[i].datetime),
+      condition: tenDayForecast[i].conditions,
+      tempMin: `${Math.round(tenDayForecast[i].tempmin)}°`,
+      tempMax: `${Math.round(tenDayForecast[i].tempmax)}°`,
+    });
+  }
+  return parsedTenDayForecast;
+};
