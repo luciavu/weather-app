@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 :root {
-  --main: rgb(0, 0, 0);
   --light: rgb(212, 212, 212);
   --frosted: rgba(255, 255, 255, 0.15);
   --frosted-focus: rgba(255, 255, 255, 0.5);
@@ -11,6 +10,7 @@
   font-family: 'Inter', Arial, sans-serif;
   box-sizing: border-box;
   font-size: 16px;
+  color: var(--light);
 }
 
 @media only screen and (max-width: 470px) {
@@ -38,6 +38,7 @@
     justify-content: flex-start;
   }
 }
+
 body {
   background-size: cover;
   background-position: center;
@@ -51,6 +52,12 @@ body {
 main {
   height: 100%;
   width: 100%;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .frosted {
@@ -90,15 +97,12 @@ header {
 
 #searchbar {
   border: none;
-  color: var(--light);
   padding: 0.7rem 3rem;
   width: 22rem;
   border-radius: 2rem;
 }
 
-#searchbar::placeholder,
-.icon-spin5,
-.error-msg-div {
+#searchbar::placeholder {
   color: var(--light);
 }
 
@@ -106,7 +110,6 @@ header {
   position: absolute;
   left: 1rem;
   top: 0.73rem;
-  color: var(--light);
 }
 
 .icon-spin5 {
@@ -117,7 +120,7 @@ header {
 
 .error-msg-div {
   position: absolute;
-  display: flex;
+  display: none;
   gap: 0.5rem;
   bottom: -1.5rem;
   left: 1rem;
@@ -135,10 +138,6 @@ header {
   border-radius: 2rem;
 }
 
-.geolocation i {
-  color: var(--light);
-}
-
 #searchbar:focus {
   outline: 0.01rem solid var(--frosted-focus);
 }
@@ -154,12 +153,8 @@ header {
 
 .weather,
 .hourly-forecast {
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  color: var(--light);
 }
 
 .location {
@@ -179,16 +174,18 @@ header {
   cursor: pointer;
 }
 
-.measurement {
+.weather .temperature {
   position: relative;
+}
+
+.measurement {
   font-size: 8rem;
   font-weight: 600;
 }
 
 .symbol {
   position: absolute;
-  right: -2rem;
-  top: 0;
+  right: -1.8rem;
   font-size: 4rem;
   font-weight: 400;
   margin-top: 1rem;
@@ -204,6 +201,10 @@ header {
   gap: 0.6rem;
 }
 
+.low-high-label {
+  margin-right: -0.5rem;
+}
+
 .hourly-forecast {
   margin-top: 6vh;
   display: flex;
@@ -211,15 +212,15 @@ header {
   gap: 0.8rem;
 }
 
-.forecast-title {
-  font-size: 0.8rem;
-  font-weight: 600;
+.forecast-title,
+.info-title {
   color: var(--frosted-focus);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.08rem;
 }
 
 .forecast-item-container {
-  display: flex;
-  justify-content: center;
   overflow-x: scroll;
   width: 100%;
   gap: 1rem;
@@ -231,10 +232,7 @@ header {
 }
 
 .forecast-item {
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 0.1rem;
   border-radius: 0.4rem;
   padding: 0 0.3rem;
@@ -255,12 +253,14 @@ header {
   cursor: pointer;
   padding: 1rem 0;
   font-size: 1.2rem;
+  transition: 0.1s ease-in-out;
+}
+
+.arrow-scroll:hover {
+  transform: translateY(0.1rem);
 }
 
 .info-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
   margin-bottom: 0.5rem;
   width: 100%;
@@ -285,13 +285,6 @@ header {
   grid-column: span 1;
 }
 
-.info-title {
-  color: var(--frosted-focus);
-  font-weight: 600;
-  font-size: 0.8rem;
-  letter-spacing: 0.08rem;
-}
-
 .center {
   display: flex;
   flex-direction: column;
@@ -301,10 +294,6 @@ header {
 .center .measurement {
   font-size: 2.8rem;
   font-weight: 400;
-}
-
-.center .measurement-metric {
-  font-size: 1rem;
 }
 
 .ten-day-forecast {
@@ -326,11 +315,9 @@ header {
   padding: 0.78rem;
 }
 
-.day,
-.day-forecast-icon,
-.day-forecast-low,
-.day-forecast-high {
+.day-forecast-item > * {
   font-size: 1.3rem;
+  color: var(--frosted-focus);
 }
 
 .label-container {
