@@ -88,6 +88,7 @@ export const createElement = (type, classNames = [], textContent = '') => {
   if (textContent) {
     element.textContent = textContent;
   }
+
   return element;
 };
 
@@ -128,13 +129,14 @@ export const getWeatherCondition = (condition) => {
     case 'light rain and snow':
     case 'heavy freezing rain':
     case 'freezing drizzle/freezing rain':
+    case 'rain, partially cloudy':
+    case 'precipitation in vicinity':
     case 'heavy freezing drizzle/freezing rain':
       return 'rain';
 
     // Thunderstorms
     case 'thunderstorm':
     case 'thunderstorm without precipitation':
-    case 'precipitation in vicinity':
     case 'lightning without thunder':
     case 'diamond dust':
       return 'thunder';

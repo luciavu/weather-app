@@ -16,9 +16,9 @@ export const fetchWeatherData = async (location, geolocation) => {
   let url;
 
   if (geolocation) {
-    url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location.latitude},${location.longitude}?unitGroup=metric&elements=datetime%2Cname%2CresolvedAddress%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Cdew%2Chumidity%2Cprecip%2Cprecipprob%2Cwindspeed%2Cwinddir%2Cvisibility%2Cuvindex%2Csunrise%2Csunset%2Cconditions%2Cdescription&key=NVAP2BG6FPFH7SUKQV4LSV9L6&contentType=json`;
+    url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location.latitude},${location.longitude}?unitGroup=metric&elements=datetime%2Cname%2CresolvedAddress%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Cdew%2Chumidity%2Cprecip%2Cwindspeed%2Cwinddir%2Cvisibility%2Cuvindex%2Csunrise%2Csunset%2Cconditions%2Cdescription&key=NVAP2BG6FPFH7SUKQV4LSV9L6&contentType=json`;
   } else {
-    url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&elements=datetime%2Cname%2CresolvedAddress%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Cdew%2Chumidity%2Cprecip%2Cprecipprob%2Cwindspeed%2Cwinddir%2Cvisibility%2Cuvindex%2Csunrise%2Csunset%2Cconditions%2Cdescription&key=NVAP2BG6FPFH7SUKQV4LSV9L6&contentType=json`;
+    url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&elements=datetime%2Cname%2CresolvedAddress%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Cdew%2Chumidity%2Cprecip%2Cwindspeed%2Cwinddir%2Cvisibility%2Cuvindex%2Csunrise%2Csunset%2Cconditions%2Cdescription&key=NVAP2BG6FPFH7SUKQV4LSV9L6&contentType=json`;
   }
 
   try {
@@ -40,14 +40,13 @@ export const fetchWeatherData = async (location, geolocation) => {
       high: `${Math.round(data.days[0].tempmax)}°`,
       uv: `${data.currentConditions.uvindex}`,
       uvDanger: `${uvRating(data.currentConditions.uvindex)}`,
-      windMeasure: `${Math.round(data.currentConditions.windspeed)} km/h`,
+      windMeasure: `${Math.round(data.currentConditions.windspeed)}km/h`,
       windDir: `${windDirection(data.currentConditions.winddir)}`,
       sunriseTime: `${data.currentConditions.sunrise.slice(0, -3)}`,
       sunsetTime: `${data.currentConditions.sunset.slice(0, -3)}`,
       feelsLike: `${Math.round(data.currentConditions.feelslike)}${unit}`,
-      precipitationPercent: `${data.currentConditions.precipprob}% chance of rain`,
-      precipitationValue: `${data.days[0].precip} mm`,
-      visibilityValue: `${data.currentConditions.visibility} km`,
+      precipitationValue: `${data.days[0].precip}mm`,
+      visibilityValue: `${data.currentConditions.visibility}km`,
       humidityValue: `${data.currentConditions.humidity}%`,
       dewpointTemperature: `${data.currentConditions.dew}${unit}`,
       hourlyForecast: parseHourlyForecast(

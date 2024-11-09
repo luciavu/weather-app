@@ -109,7 +109,12 @@ const renderHourlyForecast = (hourlyForecast) => {
   forecastContainer.textContent = '';
 
   hourlyForecast.forEach((forecast) => {
-    const forecastItem = createElement('div', ['forecast-item', 'frosted', 'flex-center']);
+    const forecastItem = createElement('div', [
+      'forecast-item',
+      'frosted',
+      'flex-center',
+      'fade-in',
+    ]);
     const time = createElement('div', ['time'], forecast.time);
     const icon = createElement('i', [
       getWeatherIcon(getWeatherCondition(forecast.condition), checkIsMorning(forecast.time)),
@@ -121,6 +126,9 @@ const renderHourlyForecast = (hourlyForecast) => {
     );
     forecastItem.append(time, icon, temperature);
     forecastContainer.append(forecastItem);
+    setTimeout(() => {
+      forecastItem.classList.add('show'); // Renders in smoothly
+    }, 50);
   });
 };
 
@@ -131,7 +139,7 @@ const renderTenDayForecast = (tenDayForecast) => {
   forecastContainer.textContent = '';
 
   tenDayForecast.forEach((forecast, index) => {
-    const item = createElement('div', ['day-forecast-item']);
+    const item = createElement('div', ['day-forecast-item', 'fade-in']);
     // Current day (first date) displayed as 'Today'
     const day = createElement('div', ['day'], index === 0 ? 'Today' : forecast.day);
     const icon = createElement('i', [
@@ -142,7 +150,11 @@ const renderTenDayForecast = (tenDayForecast) => {
     const high = createElement('div', ['day-forecast-high', 'convertable'], forecast.tempMax);
 
     item.append(day, icon, low, high);
+
     forecastContainer.append(item);
+    setTimeout(() => {
+      item.classList.add('show'); // Renders in smoothly
+    }, 50);
   });
 };
 
