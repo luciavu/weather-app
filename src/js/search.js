@@ -19,7 +19,6 @@ export const addSearchEventListener = () => {
 const handleSearch = () => {
   const searchbar = document.getElementById('searchbar');
   const location = searchbar.value.trim(); // remove extra whitespace
-  console.log(`User just searched for ${location}`); // REMOVE
 
   if (location === '') {
     handleError('Please enter a location.');
@@ -36,9 +35,7 @@ export const fetchData = async (location, geolocation = false) => {
     toggleLoadingIcon();
     const weatherData = await fetchWeatherData(location, geolocation);
     if (weatherData) {
-      console.log('Weather data:', weatherData);
       // Function to update UI
-      console.log('success!!');
       renderPage(weatherData);
     } else {
       handleError('No weather data found.');

@@ -16,10 +16,8 @@ export const fetchWeatherData = async (location, geolocation) => {
   let url;
 
   if (geolocation) {
-    console.log(location);
     url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location.latitude},${location.longitude}?unitGroup=metric&elements=datetime%2Cname%2CresolvedAddress%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Cdew%2Chumidity%2Cprecip%2Cprecipprob%2Cwindspeed%2Cwinddir%2Cvisibility%2Cuvindex%2Csunrise%2Csunset%2Cconditions%2Cdescription&key=NVAP2BG6FPFH7SUKQV4LSV9L6&contentType=json`;
   } else {
-    console.log('here');
     url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&elements=datetime%2Cname%2CresolvedAddress%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Cdew%2Chumidity%2Cprecip%2Cprecipprob%2Cwindspeed%2Cwinddir%2Cvisibility%2Cuvindex%2Csunrise%2Csunset%2Cconditions%2Cdescription&key=NVAP2BG6FPFH7SUKQV4LSV9L6&contentType=json`;
   }
 
@@ -32,7 +30,6 @@ export const fetchWeatherData = async (location, geolocation) => {
       throw new Error(`Response status: ${response.status}`);
     }
     const data = await response.json(); // Convert to JSON format
-    console.log(data);
     // Parse necessary data
     const weatherData = {
       location: getLocationName(data, geolocation),

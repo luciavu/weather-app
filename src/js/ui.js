@@ -1,8 +1,14 @@
 // Handle user interaction and page rendering
 import getUserLocation from './geolocation';
-import { convertUnit, createElement } from './helperFunctions.js';
+import {
+  convertUnit,
+  createElement,
+  checkIsMorning,
+  getWeatherCondition,
+} from './helperFunctions.js';
 import getWeatherIcon from './icons.js';
 import { fetchData } from './search.js';
+import setBackground from './background';
 
 // Add event listener for page scroll via arrow
 export const addScrollArrowListener = () => {
@@ -77,7 +83,7 @@ export const toggleLoadingIcon = () => {
 // Render page, including updating icons, background, weather details
 export const renderPage = (weatherData) => {
   // Update background
-  console.log(weatherData.condition);
+  setBackground(getWeatherCondition(weatherData.condition), checkIsMorning(weatherData.time));
 
   // Update weather details
   for (let key in weatherData) {
@@ -105,7 +111,9 @@ const renderHourlyForecast = (hourlyForecast) => {
   hourlyForecast.forEach((forecast) => {
     const forecastItem = createElement('div', ['forecast-item', 'frosted', 'flex-center']);
     const time = createElement('div', ['time'], forecast.time);
-    const icon = createElement('i', [getWeatherIcon(forecast.condition, forecast.time)]);
+    const icon = createElement('i', [
+      getWeatherIcon(getWeatherCondition(forecast.condition), checkIsMorning(forecast.time)),
+    ]);
     const temperature = createElement(
       'div',
       ['temperature', 'convertable', 'has-unit'],
@@ -128,7 +136,7 @@ const renderTenDayForecast = (tenDayForecast) => {
     const day = createElement('div', ['day'], index === 0 ? 'Today' : forecast.day);
     const icon = createElement('i', [
       'day-forecast-icon',
-      getWeatherIcon(forecast.condition, '00:00'),
+      getWeatherIcon(getWeatherCondition(forecast.condition), true),
     ]);
     const low = createElement('div', ['day-forecast-low', 'convertable'], forecast.tempMin);
     const high = createElement('div', ['day-forecast-high', 'convertable'], forecast.tempMax);

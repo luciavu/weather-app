@@ -90,3 +90,83 @@ export const createElement = (type, classNames = [], textContent = '') => {
   }
   return element;
 };
+
+export const checkIsMorning = (time) => {
+  return time.slice(0, 2) <= 18;
+};
+
+// Groups different weather conditions into main condition
+export const getWeatherCondition = (condition) => {
+  switch (condition.toLowerCase()) {
+    // Clear
+    case 'clear':
+    case 'mostly clear':
+    case 'sky unchanged':
+      return 'clear';
+
+    // Partially cloudy
+    case 'partially cloudy':
+    case 'sky coverage decreasing':
+    case 'sky coverage increasing':
+      return 'partiallyCloudy';
+
+    // Cloudy
+    case 'cloudy':
+    case 'overcast':
+      return 'cloudy';
+
+    // Rain
+    case 'light rain':
+    case 'drizzle':
+    case 'heavy drizzle':
+    case 'light drizzle':
+    case 'heavy drizzle/rain':
+    case 'light drizzle/rain':
+    case 'rain showers':
+    case 'heavy rain and snow':
+    case 'heavy rain':
+    case 'light rain and snow':
+    case 'heavy freezing rain':
+    case 'freezing drizzle/freezing rain':
+    case 'heavy freezing drizzle/freezing rain':
+      return 'rain';
+
+    // Thunderstorms
+    case 'thunderstorm':
+    case 'thunderstorm without precipitation':
+    case 'precipitation in vicinity':
+    case 'lightning without thunder':
+    case 'diamond dust':
+      return 'thunder';
+
+    // Snow
+    case 'snow':
+    case 'hail':
+    case 'hail showers':
+    case 'light snow':
+    case 'heavy snow':
+    case 'snow showers':
+    case 'snow and rain showers':
+    case 'blowing or drifting snow':
+    case 'squalls':
+      return 'snow';
+
+    // Mist
+    case 'mist':
+    case 'fog':
+      return 'fog';
+
+    // Wind
+    case 'windy':
+    case 'wind':
+    case 'dust':
+    case 'dust storm':
+    case 'smoke or haze':
+    case 'funnel cloud/tornado':
+      return 'windy';
+
+    // If no matches, use basic sun/moon
+    default:
+      return 'clear';
+  }
+};
