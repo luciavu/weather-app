@@ -2,6 +2,7 @@
 import getUserLocation from './geolocation';
 import { convertUnit, createElement } from './helperFunctions.js';
 import getWeatherIcon from './icons.js';
+import { fetchData } from './search.js';
 
 // Add event listener for page scroll via arrow
 export const addScrollArrowListener = () => {
@@ -25,8 +26,6 @@ export const addUnitToggleListener = () => {
     // Update unit class
     unitToggler.classList.remove(currentUnit);
     unitToggler.classList.add(newUnit);
-
-    console.log(`User toggled weather to ${newUnit}`); // REMOVE
     toggleUnits(newUnit);
   });
 };
@@ -36,13 +35,12 @@ export const addGeolocationRequestListener = () => {
   const geolocation = document.querySelector('.geolocation');
 
   geolocation.addEventListener('click', () => {
-    console.log('User requested geolocation'); // REMOVE
     getUserLocation()
       .then((location) => {
         console.log(
           `User location is: Latitude:${location.latitude}, Longitude ${location.longitude}`
-        ); // REMOVE
-        // TODO: Function that plugs the values into a new API call using latitude longitude
+        );
+        fetchData(location, true);
       })
       .catch((error) => {
         console.log(`Error: ${error}`);
@@ -71,7 +69,6 @@ const toggleUnits = (newUnit) => {
 
 // Toggle loading icon visibility
 export const toggleLoadingIcon = () => {
-  console.log('Toggle loading');
   const loadingIcon = document.querySelector('.animate-spin');
   const newDisplay = loadingIcon.style.display === 'inline-block' ? 'none' : 'inline-block';
   loadingIcon.style.display = newDisplay;
@@ -88,13 +85,11 @@ export const renderPage = (weatherData) => {
     const element = document.querySelector(`.${key}`);
 
     if (element) {
+      // Renders all simple data except forecasts
       element.textContent = value;
-    } else {
-      console.log(key, value);
     }
   }
   // Render hourly forecast
-  console.log('function');
   renderHourlyForecast(weatherData.hourlyForecast);
 
   // Render 10 day forecast
@@ -144,10 +139,10 @@ const renderTenDayForecast = (tenDayForecast) => {
 };
 
 // Toggle main visibility for loading default values on first visit
-export const temporarilyHideMain = () => {
-  const main = document.querySelector('main');
-  main.style.opacity = 0;
+export const temporarilyHidePage = () => {
+  const body = document.querySelector('body');
+  body.style.opacity = 0;
   setTimeout(() => {
-    main.style.opacity = 1;
-  }, 1000);
+    body.style.opacity = 1;
+  }, 500);
 };

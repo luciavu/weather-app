@@ -6,14 +6,14 @@ import {
   addScrollArrowListener,
   addUnitToggleListener,
   addGeolocationRequestListener,
-  temporarilyHideMain,
+  temporarilyHidePage,
 } from './ui';
 import { addSearchEventListener } from './search.js';
 import { fetchData } from './search.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  temporarilyHidePage();
   const defaultLocation = 'Tokyo';
-  temporarilyHideMain();
   changeBackground('');
   addScrollArrowListener();
   addUnitToggleListener();

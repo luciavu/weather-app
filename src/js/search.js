@@ -31,10 +31,10 @@ const handleSearch = () => {
   }
 };
 
-export const fetchData = async (location) => {
+export const fetchData = async (location, geolocation = false) => {
   try {
     toggleLoadingIcon();
-    const weatherData = await fetchWeatherData(location);
+    const weatherData = await fetchWeatherData(location, geolocation);
     if (weatherData) {
       console.log('Weather data:', weatherData);
       // Function to update UI

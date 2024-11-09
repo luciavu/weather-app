@@ -56,13 +56,20 @@ export const getTimeFromOffset = (timezoneOffset) => {
   return adjustedTime;
 };
 
-export const getLocationName = (resolvedAddress) => {
-  // For cases where format similar to: "Tokyo, Japan"
-  if (resolvedAddress.includes(',')) {
-    return resolvedAddress.split(',')[0].trim(); // E.g. Retrieve 'Tokyo' only
+export const getLocationName = (data, geolocation = false) => {
+  if (geolocation) {
+    // Use timezone as location instead "America/New_York" -> "New York"
+    const timezone = data.timezone;
+    return timezone.split('/')[1].replace('_', ''); // Remove _ if any
+  } else {
+    const resolvedAddress = data.resolvedAddress;
+    // For cases where format similar to: "Tokyo, Japan"
+    if (resolvedAddress.includes(',')) {
+      return resolvedAddress.split(',')[0].trim(); // E.g. Retrieve 'Tokyo' only
+    }
+    // Case where address format: "Việt Nam"
+    return resolvedAddress; // Return full name
   }
-  // Case where address format: "Việt Nam"
-  return resolvedAddress; // Return full name
 };
 
 export const getWeekdayFromDate = (dateString) => {
