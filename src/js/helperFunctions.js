@@ -92,8 +92,12 @@ export const createElement = (type, classNames = [], textContent = '') => {
   return element;
 };
 
-export const checkIsMorning = (time) => {
-  return time.slice(0, 2) <= 18;
+// Determine whether to use morning or night icon/backgrounds using current time and sunset/sunrise time
+export const checkIsMorning = (time, sunrise, sunset) => {
+  return (
+    parseInt(time.slice(0, 2)) <= parseInt(sunset.slice(0, 2)) &&
+    parseInt(time.slice(0, 2)) >= parseInt(sunrise.slice(0, 2))
+  );
 };
 
 // Groups different weather conditions into main condition

@@ -83,7 +83,10 @@ export const toggleLoadingIcon = () => {
 // Render page, including updating icons, background, weather details
 export const renderPage = (weatherData) => {
   // Update background
-  setBackground(getWeatherCondition(weatherData.condition), checkIsMorning(weatherData.time));
+  setBackground(
+    getWeatherCondition(weatherData.condition),
+    checkIsMorning(weatherData.time, weatherData.sunriseTime, weatherData.sunsetTime)
+  );
 
   // Update weather details
   for (let key in weatherData) {
@@ -96,15 +99,18 @@ export const renderPage = (weatherData) => {
     }
   }
   // Render hourly forecast
-  renderHourlyForecast(weatherData.hourlyForecast);
+  renderHourlyForecast(weatherData);
 
   // Render 10 day forecast
   renderTenDayForecast(weatherData.tenDayForecast);
 };
 
 // Render hourly forecast divs: time, icon, temperature
-const renderHourlyForecast = (hourlyForecast) => {
+const renderHourlyForecast = (weatherData) => {
+  const hourlyForecast = weatherData.hourlyForecast;
   const forecastContainer = document.querySelector('.forecast-item-container');
+  const sunrise = weatherData.sunriseTime;
+  const sunset = weatherData.sunsetTime;
   // Clear previous content
   forecastContainer.textContent = '';
 
@@ -117,8 +123,12 @@ const renderHourlyForecast = (hourlyForecast) => {
     ]);
     const time = createElement('div', ['time'], forecast.time);
     const icon = createElement('i', [
-      getWeatherIcon(getWeatherCondition(forecast.condition), checkIsMorning(forecast.time)),
+      getWeatherIcon(
+        getWeatherCondition(forecast.condition),
+        checkIsMorning(forecast.time, sunrise, sunset)
+      ),
     ]);
+
     const temperature = createElement(
       'div',
       ['temperature', 'convertable', 'has-unit'],
