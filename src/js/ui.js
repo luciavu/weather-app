@@ -163,6 +163,7 @@ const renderTenDayForecast = (tenDayForecast) => {
 
     forecastContainer.append(item);
   });
+  forecastContainer.click(); // Sometimes container doesn't render until I click and highlight?
 };
 
 // Toggle main visibility for loading default values on first visit
