@@ -18,7 +18,7 @@ Laptop view:
 
 Mobile view:
 
-![alt text](src/img/preview/preview4.png)
+![alt text](src/img/preview/preview3.png)
 
 ## Links
 
