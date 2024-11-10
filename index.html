@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+  <script defer src="main.js"></script></head>
+  <body style="opacity: 0">
+    <main>
+      <header>
+        <div class="credits">
+          <a href="https://github.com/luciavu/weather-app" target="_blank">
+            <i class="icon-github-circled"></i>
+          </a>
+        </div>
+        <div class="search-options">
+          <div class="search">
+            <input
+              type="text"
+              class="frosted"
+              name="searchbar"
+              id="searchbar"
+              placeholder="Search location..."
+            />
+            <a href="#"><i class="icon-search"></i></a>
+            <i class="icon-spin5 animate-spin loading"></i>
+            <div class="error-msg-div">
+              <i class="icon-attention-circled"></i>
+              <div class="error-msg">Please enter an input.</div>
+            </div>
+          </div>
+          <div class="geolocation frosted">
+            <span><i class="icon-location"></i></span>
+          </div>
+        </div>
+      </header>
+      <div class="main-weather-info">
+        <div class="weather flex-center">
+          <div class="location"></div>
+
+          <div class="time"></div>
+          <div class="temperature celsius">
+            <div class="measurement convertable currentTemp"></div>
+            <div class="symbol">°</div>
+          </div>
+
+          <div class="condition"></div>
+          <div class="low-high">
+            <div class="low-high-label">L:</div>
+            <div class="low convertable"></div>
+            <div class="low-high-label">H:</div>
+            <div class="high convertable"></div>
+          </div>
+        </div>
+        <div class="hourly-forecast flex-center">
+          <div class="forecast-title">HOURLY FORECAST</div>
+          <div class="forecast-item-container flex-center"></div>
+        </div>
+
+        <i class="arrow-scroll icon-down-open-big"></i>
+      </div>
+    </main>
+    <div class="info-section flex-center">
+      <div class="info-grid">
+        <div class="frosted info-container ten-day-forecast">
+          <div class="info-title"><i class="icon-calendar"></i> 10-DAY FORECAST</div>
+          <div class="day-forecast-container">
+            <div class="day-forecast-item label-container">
+              <div class="day label">DAY</div>
+              <i class="day-forecast-icon label">WEATHER</i>
+              <div class="day-forecast-low label">LOW</div>
+              <div class="day-forecast-high label">HIGH</div>
+            </div>
+            <div class="day-forecast-div"></div>
+          </div>
+        </div>
+        <div class="frosted info-container uv-index">
+          <div class="info-title"><i class="icon-sun"></i> UV INDEX</div>
+          <div class="center">
+            <div class="measurement uv"></div>
+            <div class="uv-danger uvDanger"></div>
+          </div>
+        </div>
+        <div class="frosted info-container wind">
+          <div class="info-title"><i class="icon-wind"></i> WIND</div>
+          <div class="center">
+            <div class="measurement windMeasure"></div>
+            <div class="wind-direction windDir"></div>
+          </div>
+        </div>
+        <div class="frosted info-container sunrise">
+          <div class="info-title"><i class="icon-fog-sun"></i> SUNRISE</div>
+          <div class="center">
+            <div class="measurement sunriseTime"></div>
+          </div>
+        </div>
+        <div class="frosted info-container sunset">
+          <div class="info-title"><i class="icon-fog-moon"></i> SUNSET</div>
+          <div class="center">
+            <div class="measurement sunsetTime"></div>
+          </div>
+        </div>
+        <div class="frosted info-container feels-like">
+          <div class="info-title"><i class="icon-thermometer-3"></i> FEELS LIKE</div>
+          <div class="center">
+            <div class="measurement convertable has-unit feelsLike"></div>
+          </div>
+        </div>
+        <div class="frosted info-container precipitation">
+          <div class="info-title"><i class="icon-water"></i> PRECIPITATION</div>
+          <div class="center">
+            <div class="measurement precipitationValue"></div>
+          </div>
+        </div>
+        <div class="frosted info-container visibility">
+          <div class="info-title"><i class="icon-mist"></i> VISIBILITY</div>
+          <div class="center">
+            <div class="measurement visibilityValue"></div>
+          </div>
+        </div>
+        <div class="frosted info-container humidity">
+          <div class="info-title"><i class="icon-waves"></i> HUMIDITY</div>
+          <div class="center">
+            <div class="measurement humidityValue"></div>
+          </div>
+        </div>
+        <div class="frosted info-container dewpoint">
+          <div class="info-title"><i class="icon-leaf"></i> DEWPOINT</div>
+          <div class="center">
+            <div class="measurement convertable has-unit dewpointTemperature"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
