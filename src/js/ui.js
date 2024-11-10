@@ -149,7 +149,7 @@ const renderTenDayForecast = (tenDayForecast) => {
   forecastContainer.textContent = '';
 
   tenDayForecast.forEach((forecast, index) => {
-    const item = createElement('div', ['day-forecast-item', 'fade-in']);
+    const item = createElement('div', ['day-forecast-item']);
     // Current day (first date) displayed as 'Today'
     const day = createElement('div', ['day'], index === 0 ? 'Today' : forecast.day);
     const icon = createElement('i', [
@@ -162,9 +162,6 @@ const renderTenDayForecast = (tenDayForecast) => {
     item.append(day, icon, low, high);
 
     forecastContainer.append(item);
-    setTimeout(() => {
-      item.classList.add('show'); // Renders in smoothly
-    }, 50);
   });
 };
 
