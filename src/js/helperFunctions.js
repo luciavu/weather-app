@@ -122,6 +122,8 @@ export const getWeatherCondition = (condition) => {
 
     // Rain
     case 'light rain':
+    case 'rain, overcast':
+    case 'rain, partially-cloudy':
     case 'drizzle':
     case 'heavy drizzle':
     case 'light drizzle':
