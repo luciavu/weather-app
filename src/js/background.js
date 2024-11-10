@@ -9,9 +9,11 @@ import partiallyCloudyNight from '../img/night/partially-cloudy.jpg';
 import thunder from '../img/thunder.jpg';
 import fog from '../img/fog.jpg';
 import rainy from '../img/rainy.jpg';
+import snow from '../img/snow.jpg';
 
 const setBackground = function setBackground(weather, isMorning) {
   const body = document.querySelector('body');
+
   // Change main background
   switch (weather) {
     case 'clear':
@@ -30,6 +32,7 @@ const setBackground = function setBackground(weather, isMorning) {
         body.style.backgroundImage = `url(${partiallyCloudyNight})`;
         return;
       }
+    case 'windy':
     case 'cloudy':
       if (isMorning) {
         body.style.backgroundImage = `url(${cloudyDay})`;
@@ -47,6 +50,9 @@ const setBackground = function setBackground(weather, isMorning) {
       return;
     case 'rain':
       body.style.backgroundImage = `url(${rainy})`;
+      return;
+    case 'snow':
+      body.style.backgroundImage = `url(${snow})`;
       return;
   }
 };
